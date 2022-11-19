@@ -1,0 +1,87 @@
+
+.session-box, .break-box{
+    width: 300px;
+    height: 150px;
+    text-align: center;
+    border: 10px dashed blue;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-weight: bolder;
+    padding: 10px;
+}
+.container{
+    width: 400px;
+    height: auto;
+    display: grid;
+    border: 2px solid crimson;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    background-color:blanchedalmond;
+}
+button{
+    margin: 2px
+}
+.sessionButtons{
+    margin: auto;
+    display: block;
+}
+
+.breakUp, .sessionUp, .upCycle{
+    position: relative;
+    right: 103px;
+    bottom: 2px;
+    border: 3px groove whitesmoke;
+    outline: 2px solid black;
+    border-radius: 3%;
+}
+.breakDown, .sessionDown, .downCycle{
+    position: relative;
+    left: 103px;
+    bottom: 2px;
+    border: 3px groove whitesmoke;
+    outline: 2px solid black;
+    border-radius: 3%;
+}
+.session-screen, .break-screen{
+    border: 3px ridge white;
+    height: 50px;
+    font: bolder;
+    font-size: xx-large;
+    background-color: black;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-top: 9px;
+}
+.upImage, .downImage, .upCycleImage, .downCycleImage{
+    width: 25px;
+    height: auto;
+    outline: 0;
+    margin: 0;
+}
+.cycle_style{
+    font-weight: bolder;
+}
+.startStop, .reset{
+    width: 150px;
+    height: 40px;
+    border: 3px groove white;
+    background-color:blue;
+    color: blanchedalmond;
+    font-weight: bolder;
+    outline: 2px solid black;
+    position: relative;
+
+}
+.startStop{
+    right: 17px;
+}
+.reset{
+    left: 17px;
+}
+footer{
+    margin: auto;
+    text-align: center;
+}
