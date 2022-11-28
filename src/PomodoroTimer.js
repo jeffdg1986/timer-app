@@ -2,9 +2,6 @@ import './PomodoroTimer.css';
 import React, { Component } from 'react';
 import sessionAlarmSound from "./audio-files/percussion7.wav";
 import breakAlarmSound from './audio-files/percussion1.mp3';
-import upArrow from './images/up_arrow.png';
-import downArrow from './images/down_arrow.png';
-
 var myInterval;
 class PomodoroTimer extends Component {
   constructor(props) {
@@ -47,7 +44,7 @@ class PomodoroTimer extends Component {
     else {
       this.pause();
       this.setState({
-        sessionMessage: 'there is a bug in restart cycle method'
+        sessionMessage: 'There is a bug in restart cycle method'
       })
     }
   }
@@ -74,7 +71,8 @@ class PomodoroTimer extends Component {
             sessionTimeInSeconds: this.state.sessionTimeInSeconds - 1,
             sessionMinutes: parseInt((parseInt(this.state.sessionTimeInSeconds)-1) / 60),
             sessionSeconds: (parseInt(this.state.sessionTimeInSeconds) -1) % 60,
-            breakMessage: ''
+            breakMessage: '',
+            sessionMessage: ''
           })
         }
         // < 10 : >= 10
@@ -82,7 +80,9 @@ class PomodoroTimer extends Component {
           this.setState({
             sessionTimeInSeconds: this.state.sessionTimeInSeconds - 1,
             sessionMinutes: '0' + parseInt((parseInt(this.state.sessionTimeInSeconds)-1) / 60),
-            sessionSeconds: (parseInt(parseInt(this.state.sessionTimeInSeconds)-1) % 60)
+            sessionSeconds: (parseInt(parseInt(this.state.sessionTimeInSeconds)-1) % 60),
+            breakMessage: '',
+            sessionMessage: ''
           })          
         }
         // >= 10 : < 10
@@ -92,7 +92,9 @@ class PomodoroTimer extends Component {
           this.setState({
             sessionTimeInSeconds: this.state.sessionTimeInSeconds - 1,
             sessionMinutes: parseInt((parseInt(this.state.sessionTimeInSeconds)-1) / 60),
-            sessionSeconds: '0' + parseInt(parseInt(this.state.sessionTimeInSeconds)-1) % 60
+            sessionSeconds: '0' + parseInt(parseInt(this.state.sessionTimeInSeconds)-1) % 60,
+            breakMessage: '',
+            sessionMessage: ''
           })
         }
         // < 10 : (0-9)
@@ -103,7 +105,9 @@ class PomodoroTimer extends Component {
           this.setState({
             sessionTimeInSeconds: this.state.sessionTimeInSeconds -1,
             sessionMinutes: '0' + parseInt((parseInt(this.state.sessionTimeInSeconds)-1) / 60),
-            sessionSeconds: '0' + parseInt(parseInt(this.state.sessionTimeInSeconds)-1) % 60
+            sessionSeconds: '0' + parseInt(parseInt(this.state.sessionTimeInSeconds)-1) % 60,
+            breakMessage: '',
+            sessionMessage: ''
           })
         }
         else if(this.state.sessionTimeInSeconds === 1){
@@ -112,7 +116,7 @@ class PomodoroTimer extends Component {
             sessionMinutes: '00',
             sessionSeconds: '00',
             intervalType: 'break',
-            sessionMessage: 'session completed',
+            sessionMessage: 'Session Completed',
           })
         }
       }   
@@ -125,6 +129,7 @@ class PomodoroTimer extends Component {
             breakMinutes: parseInt((parseInt(this.state.breakTimeInSeconds)-1) / 60),
             breakSeconds: ((parseInt(this.state.breakTimeInSeconds) -1) % 60),
             sessionMessage: '',
+            breakMessage: ''
           })
         }
         // < 10 : >= 10
@@ -135,6 +140,7 @@ class PomodoroTimer extends Component {
           breakMinutes: '0' + parseInt((parseInt(this.state.breakTimeInSeconds)-1) / 60),
           breakSeconds: (parseInt(parseInt(this.state.breakTimeInSeconds)-1) % 60),
           sessionMessage: '',
+          breakMessage: ''
           })          
         }
         // >= 10 : < 10
@@ -146,6 +152,7 @@ class PomodoroTimer extends Component {
             breakMinutes: parseInt((parseInt(this.state.breakTimeInSeconds)-1) / 60),
             breakSeconds: '0' + parseInt(parseInt(this.state.breakTimeInSeconds)-1) % 60,
             sessionMessage: '',
+            breakMessage: ''
           })
         } 
         // < 10 : < 10
@@ -158,6 +165,7 @@ class PomodoroTimer extends Component {
             breakMinutes: '0' + parseInt((parseInt(this.state.breakTimeInSeconds)-1) / 60),
             breakSeconds: '0' + parseInt(parseInt(this.state.breakTimeInSeconds)-1) % 60,
             sessionMessage: '',
+            breakMessage: ''
           })
         }
         else if(parseInt(this.state.breakTimeInSeconds)-1 === 0 
@@ -165,7 +173,7 @@ class PomodoroTimer extends Component {
           this.setState({
             breakTimeInSeconds: this.state.breakTimeInSeconds -1,
             intervalType: 'cycle',
-            breakMessage: 'break completed',
+            breakMessage: 'Break Completed',
             breakMinutes: '00',
             breakSeconds: '00',
           })
@@ -174,7 +182,7 @@ class PomodoroTimer extends Component {
       else if(this.state.intervalType === 'cycle'){
         this.restartCycle();
       }
-    }, 1000);
+    }, 100);
   };
 
   pause = () =>{
@@ -310,55 +318,106 @@ class PomodoroTimer extends Component {
   }
   componentDidUpdate() {
     console.log(this.state.sessionTimeInSeconds, this.state.breakTimeInSeconds, this.state.cycleCount, this.state.sessionMessage, this.state.breakMessage);
-    if(this.state.sessionMessage === 'session completed'){
+    if(this.state.sessionMessage === 'Session Completed'){
       const sessionAudio = document.getElementsByClassName('sessionAlarm')[0];
       sessionAudio.play();
     }
-    else if(this.state.breakMessage === 'break completed'){
+    else if(this.state.breakMessage === 'Break Completed'){
       const breakAudio = document.getElementsByClassName('breakAlarm')[0];
       breakAudio.play();
     } 
   }
   render() {
+    if(this.state.intervalType === 'session'){
     return ( <>
     <div className='container'>
       <h1>Pomodoro Clock</h1>
-    <div className='cycle_style'>Cycle Count: {this.state.cycleSet}</div>
-      <span>
-        <button onClick={this.cycleUp} className='upCycle'><img src={upArrow} alt = 'www.google.com' className='upCycleImage'/></button>
-        <button onClick={this.cycleDown} className ='downCycle'><img src={downArrow} alt='www.google.com' className='downCycleImage'/></button>
-      </span>
-      <div className='session-box'>Set Session Minutes: {parseInt(this.state.staticSessionInSeconds / 60)}
-      <div className='sessionButtons'>
-      <span>
-      <button onClick={this.sessionUp} className='sessionUp'><img src={upArrow} alt = 'www.google.com' className='upImage'/></button>
-      <button src={downArrow}onClick={this.sessionDown} className='sessionDown'><img src={downArrow} alt='www.google.com' className='downImage' /></button>
-      </span>
+      <div className='settings'>Settings:</div>
+      <div className='cycle-container'> 
+      <div className='cycle_style'>Cycle(s): {this.state.cycleSet}</div>
+      <div className='button-container'>
+        <button onClick={this.cycleUp} className='upCycle'>+</button>
+        <button onClick={this.cycleDown} className ='downCycle'>-</button>  
       </div>
+      </div>
+      
+      <div className='session-container'>
+        <div className='session-box'>Session: {parseInt(this.state.staticSessionInSeconds / 60)} Minutes</div>
+        <div className='button-container'>
+        <button onClick={this.sessionUp} className='sessionUp'>+</button>
+        <button onClick={this.sessionDown} className='sessionDown'>-</button>
+      </div>
+      </div>
+      <div className='break-container'>
+      <div className='break-box'>Break: {parseInt(this.state.staticBreakInSeconds / 60)} Minutes</div>
+      <div className='button-container'>
+      <button onClick={this.breakUp} className='breakUp'>+</button>
+      <button onClick={this.breakDown} className='breakDown'>-</button>
+      </div>
+      </div>
+{/* Conditional piece */}
       <div className='session-screen'>{this.state.sessionMinutes} : {this.state.sessionSeconds}</div>
       <div>{this.state.sessionMessage}</div>
-      </div>
+      <div>{this.state.breakMessage}</div>
+{/* Conditional piece */}
       <span>
       <button onClick={this.startStop} className='startStop'>Start / Stop</button>
       <button onClick={this.reset} className='reset'>Reset</button>
       </span>
-      <div className='break-box'>Set Break Minutes: {parseInt(this.state.staticBreakInSeconds / 60)}
-      <div>
-      <span>
-      <button onClick={this.breakUp} className='breakUp'><img src={upArrow} alt = 'www.google.com' className='upImage'/></button>
-      <button onClick={this.breakDown} className='breakDown'><img src={downArrow} alt='www.google.com' className='downImage' /></button>
-      </span>
-      <div className='break-screen'>{this.state.breakMinutes} : {this.state.breakSeconds}</div>
-      <div>{this.state.breakMessage}</div>
-      </div>
-      </div>
+
     </div>
     <footer>Developed by Jeff McCormick</footer>
     <audio className='breakAlarm'><source src= {breakAlarmSound}></source></audio>
     <audio className='sessionAlarm'><source src= {sessionAlarmSound}></source></audio>
     </> );
   }
-  
+  else if(this.state.intervalType === 'cycle' || this.state.intervalType === 'break'){
+    return (
+      <>
+    <div className='container'>
+      <h1>Pomodoro Clock</h1>
+      <div className='settings'>Settings:</div>
+      <div className='cycle-container'>
+      <div className='cycle_style'>Cycle(s): {this.state.cycleSet}</div>
+      <div className='button-container'>
+        <button onClick={this.cycleUp} className='upCycle'>+</button>
+        <button onClick={this.cycleDown} className ='downCycle'>-</button>  
+      </div>
+      </div>
+      
+      <div className='session-container'>
+        <div className='session-box'>Session: {parseInt(this.state.staticSessionInSeconds / 60)} Minutes</div>
+        <div className='button-container'>
+        <button onClick={this.sessionUp} className='sessionUp'>+</button>
+        <button onClick={this.sessionDown} className='sessionDown'>-</button>
+      </div>
+      </div>
+      <div className='break-container'>
+      <div className='break-box'>Break: {parseInt(this.state.staticBreakInSeconds / 60)} Minutes</div>
+      <div className='button-container'>
+      <button onClick={this.breakUp} className='breakUp'>+</button>
+      <button onClick={this.breakDown} className='breakDown'>-</button>
+      </div>
+      </div>
+      
+{/* Conditional Piece */}
+      <div className='break-screen'>{this.state.breakMinutes} : {this.state.breakSeconds}</div>
+      <div>{this.state.sessionMessage}</div>
+      <div>{this.state.breakMessage}</div>
+{/* Conditional Piece */}
+      <span>
+      <button onClick={this.startStop} className='startStop'>Start / Stop</button>
+      <button onClick={this.reset} className='reset'>Reset</button>
+      </span>
+    
+    </div>
+    <footer>Developed by Jeff McCormick</footer>
+    <audio className='breakAlarm'><source src= {breakAlarmSound}></source></audio>
+    <audio className='sessionAlarm'><source src= {sessionAlarmSound}></source></audio>
+      </>
+    )
+  }
+}
 }
  
 export default PomodoroTimer ;

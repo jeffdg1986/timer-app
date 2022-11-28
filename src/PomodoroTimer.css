@@ -1,49 +1,19 @@
-
-.session-box, .break-box{
-    width: 300px;
-    height: 150px;
-    text-align: center;
-    border: 10px dashed blue;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    font-weight: bolder;
-    padding: 10px;
-}
 .container{
-    width: 400px;
+    width: 300px;
     height: auto;
-    display: grid;
-    border: 2px solid crimson;
+    border: 10px ridge black;
     position: relative;
     margin: auto;
     text-align: center;
-    background-color:blanchedalmond;
+    background-color: blanchedalmond;
 }
-button{
+/* button{
     margin: 2px
-}
-.sessionButtons{
-    margin: auto;
-    display: block;
-}
+} */
 
-.breakUp, .sessionUp, .upCycle{
+.breakDown, .breakUp, .break-box, .sessionDown, .sessionUp, .session-box, .downCycle, .upCycle, .cycle_style{
     position: relative;
-    right: 103px;
-    bottom: 2px;
-    border: 3px groove whitesmoke;
-    outline: 2px solid black;
-    border-radius: 3%;
-}
-.breakDown, .sessionDown, .downCycle{
-    position: relative;
-    left: 103px;
-    bottom: 2px;
-    border: 3px groove whitesmoke;
-    outline: 2px solid black;
-    border-radius: 3%;
+    display: inline-block;
 }
 .session-screen, .break-screen{
     border: 3px ridge white;
@@ -54,34 +24,65 @@ button{
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding-top: 9px;
-}
-.upImage, .downImage, .upCycleImage, .downCycleImage{
-    width: 25px;
-    height: auto;
-    outline: 0;
-    margin: 0;
-}
-.cycle_style{
-    font-weight: bolder;
+    width: 200px;
+    margin: auto;
 }
 .startStop, .reset{
-    width: 150px;
+    width: 125px;
     height: 40px;
-    border: 3px groove white;
     background-color:blue;
     color: blanchedalmond;
     font-weight: bolder;
-    outline: 2px solid black;
     position: relative;
-
-}
-.startStop{
-    right: 17px;
-}
-.reset{
-    left: 17px;
+    display: inline-block;
+    border-radius: 5%;
+    margin: 5px;
 }
 footer{
     margin: auto;
     text-align: center;
+}
+
+.breakDown, .breakUp, .sessionDown, .sessionUp, .downCycle, .upCycle{
+    width: 25px;
+    height: 25px;
+    border: 2px solid black;
+    background-color: dimgray;
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+    margin: 2px;
+    top: 1px;
+}
+
+.breakDown:hover, .breakUp:hover, .sessionDown:hover, .sessionUp:hover, .downCycle:hover, .upCycle:hover{
+    background-color: white;
+    color: dimgray;
+}
+.cycle-container, .session-container, .break-container{
+    text-align: left;
+    border: 5px ridge rgb(45, 7, 24);
+    position: relative;
+    height: 32px;
+    margin: 5px;
+}
+.button-container{
+    display: inline-flex;
+    float: right;
+    
+}
+.breakDown, .sessionDown, .downCycle{
+    position: relative;
+    margin: 2px 3px 2px 0px;
+}
+
+.cycle_style, .break-box, .session-box{
+    font-weight: bold;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+.settings{
+    text-align: left;
+    margin-left: 5px;
+    font-size: 22px;
 }
