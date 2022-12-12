@@ -182,7 +182,7 @@ class PomodoroTimer extends Component {
       else if(this.state.intervalType === 'cycle'){
         this.restartCycle();
       }
-    }, 100);
+    }, 1000);
   };
 
   pause = () =>{
